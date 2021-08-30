@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Text(
-                    "Welcome",
+                    "TICKET SYSTEM",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -36,21 +36,7 @@ class HomePage extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    "GIGABYTE TICKET SYSTEM ",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 15,
-                    ),
-                  )
                 ],
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height / 3,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/welcome.png"))),
               ),
               Column(
                 children: <Widget>[
@@ -59,14 +45,16 @@ class HomePage extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => LoginPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MainLoginPage()));
                     },
                     // defining the shape
 
                     shape: RoundedRectangleBorder(
                         side: BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(30)),
                     child: Text(
                       "Login",
                       style:
@@ -84,9 +72,9 @@ class HomePage extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => SignupPage()));
                     },
-                    color: Color(0xff9c1156),
+                    color: Colors.black,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(30)),
                     child: Text(
                       "Sign up",
                       style: TextStyle(

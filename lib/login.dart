@@ -1,8 +1,26 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 
-class LoginPage extends StatelessWidget {
+import 'package:login_signup_screen/signup.dart';
+import 'package:login_signup_screen/forgotpassword.dart';
+import 'package:login_signup_screen/create_view.dart';
+
+import 'package:login_signup_screen/ticketCard.dart';
+
+class MainLoginPage extends StatefulWidget {
+  @override
+  LoginPage createState() => LoginPage();
+}
+
+class LoginPage extends State<MainLoginPage> {
+  bool checkBoxValue = false;
+
+  TextEditingController _username = TextEditingController();
+  TextEditingController _password = TextEditingController();
+
+  String username;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,18 +61,32 @@ class LoginPage extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      "Login to your account",
-                      style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-                    )
                   ],
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40),
                   child: Column(
-                    children: <Widget>[
-                      inputFile(label: "Email"),
-                      inputFile(label: "Password", obscureText: true)
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: TextField(
+                          controller: _username,
+                          decoration: InputDecoration(labelText: 'Username'),
+                          onChanged: (value) => username = value,
+                          // onChanged: (value) {
+                          //   print(value);
+                          // },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: TextField(
+                          controller: _password,
+                          decoration: InputDecoration(labelText: 'Password'),
+                          obscureText: true,
+                          onChanged: (value) => password = value,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -63,21 +95,21 @@ class LoginPage extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.only(top: 3, left: 3),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border(
-                          bottom: BorderSide(color: Colors.black),
-                          top: BorderSide(color: Colors.black),
-                          left: BorderSide(color: Colors.black),
-                          right: BorderSide(color: Colors.black),
-                        )),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 60,
-                      onPressed: () {},
-                      color: Color(0xff9c1156),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainTicketCard()));
+                      },
+                      color: Colors.black,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(30),
                       ),
                       child: Text(
                         "Login",
@@ -90,45 +122,67 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                //
-                //
-                //
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text("Remember me"),
-                    // Text(
-                    //   " Sign up",
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.w600,
-                    //     fontSize: 18,
-                    //   ),
-                    // )
+                    Checkbox(
+                        value: checkBoxValue,
+                        onChanged: (bool value) {
+                          setState(() {
+                            checkBoxValue = value;
+                          });
+                        })
                   ],
                 ),
-
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    RichText(
+                      text: TextSpan(children: <TextSpan>[
+                        TextSpan(
+                            text: 'Forgot Password?',
+                            style: new TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ForgotPassword()));
+                              })
+                      ]),
+                    )
+                  ],
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text("Don't have an account?"),
-                    Text(
-                      " Sign up",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    )
+                    RichText(
+                      text: TextSpan(children: <TextSpan>[
+                        TextSpan(
+                            text: 'Sign Up',
+                            style: new TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                // print("Sign Up Clicked");
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignupPage()));
+                              })
+                      ]),
+                    ),
                   ],
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 100),
-                  height: 200,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/background.png"),
-                        fit: BoxFit.fitHeight),
-                  ),
-                )
               ],
             ))
           ],
@@ -138,7 +192,6 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-// we will be creating a widget for text field
 Widget inputFile({label, obscureText = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
