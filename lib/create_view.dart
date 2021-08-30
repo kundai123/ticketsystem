@@ -36,7 +36,6 @@ class CreateView extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Container(
-                    // Expanded(
                     width: 180.0,
                     height: 120.0,
                     child: RaisedButton(
@@ -45,16 +44,11 @@ class CreateView extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                //if user info is true open ticket card
                                 builder: (context) => MainTicketCard()));
                       },
                       textColor: Colors.white,
                       color: Colors.black,
-
-                      // padding: ,
                     ),
-                    // ),
-                    // padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
                     margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
                   ),
                   Padding(padding: const EdgeInsets.all(200)),
